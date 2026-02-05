@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Entry | Water Quality Dashboard</title>
+    <link rel="stylesheet" href="/static/css/data_entry.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body class="data-bg">
+    <div class="data-container">
+        <h1 class="data-title">{{ 'Ocean Water Monitoring' if project == 'ocean' else 'Pond Health Monitoring' }}</h1>
+        <!-- Step Progress Indicator -->
+        <div class="step-progress">
+            <div class="step" id="step-loc">1. Location</div>
+            <div class="step" id="step-water">2. Water Type</div>
+            <div class="step" id="step-pin">3. Pin ID</div>
+            <div class="step" id="step-bt">4. Bluetooth</div>
+            <div class="step" id="step-sensor">5. Sensor Data</div>
+            <div class="step" id="step-img">6. Image</div>
+        </div>
+        <form id="data-form" method="POST" enctype="multipart/form-data" autocomplete="off">
+            <input type="hidden" name="project_type" value="{{ 'Ocean Water Monitoring' if project == 'ocean' else 'Pond Health Monitoring' }}">
+            <!-- Date & Time (auto, hidden) -->
+            <input type="hidden" id="date" name="date">
+            <input type="hidden" id="time" name="time">
+            <!-- Location & Map Panel -->
+            <div class="panel card-panel">
+                <h2 class="panel-title">Location & Map</h2>
+                <button type="button" class="btn-glow" id="detect-location">Detect Location</button>
+                <div class="location-fields">
+                    <div class="location-field">
+                        <label>Latitude</label>
+                        <input type="text" id="latitude" name="latitude" readonly required disabled>
+                    </div>
+                    <div class="location-field">
+                        <label>Longitude</label>
+                        <input type="text" id="longitude" name="longitude" readonly required disabled>
+                    </div>
+                </div>
+                <div id="map" class="map-panel"></div>
+            </div>
+            <!-- Water Type Selection -->
+            <div class="panel card-panel">
+                <h2 class="panel-title">Water Type</h2>
+                <div class="water-type-group">
+                    <select id="water-type" name="water_type" required disabled>
+                        <option value="">Select Water Type</option>
+                        {% if project == 'ocean' %}
+                        <option>Open Ocean Water</option>
+                        <option>Coastal Water</option>
+                        <option>Estuarine Water</option>
+                        <option>Deep Sea Water</option>
+                        <option>Marine Surface Water</option>
+                        {% else %}
+                        <option>Pond Water</option>
+                        <option>Drinking Water</option>
+                        <option>Ground Water</option>
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <!-- Pin ID -->
+            <div class="panel card-panel">
+                <h2 class="panel-title">Pin ID</h2>
+                <div class="location-fields">
+                    <div class="location-field">
+                        <label>Pin ID</label>
+                        <input type="text" id="pin_id" name="pin_id" required disabled>
+                    </div>
+                </div>
+            </div>
+            <!-- Bluetooth Sensor Panel -->
+            <div class="panel card-panel">
+                <h2 class="panel-title">Bluetooth Control Panel</h2>
+                <button type="button" class="btn-glow" id="scan-btn" disabled>Scan Bluetooth Devices</button>
+                <div id="sensor-status" class="status-indicator">🔴 Not Connected</div>
+                <div id="bluetooth-list" class="bluetooth-list"></div>
+            </div>
+            <!-- Sensor Data Panel -->
+            <div class="panel card-panel">
+                <h2 class="panel-title">Sensor Data</h2>
+                <button type="button" class="btn-glow" id="read-sensor-btn" disabled>READ SENSOR DATA</button>
+                <div class="sensor-readings">
+                    <div class="sensor-field">
+                        <label>Temperature (°C)</label>
+                        <input type="text" id="temperature" name="temperature" readonly>
+                    </div>
+                    <div class="sensor-field">
+                        <label>pH</label>
+                        <input type="text" id="ph" name="pH" readonly>
+                    </div>
+                    {% if project == 'pond' %}
+                    <div class="sensor-field">
+                        <label>Dissolved Oxygen (DO)</label>
+                        <input type="text" id="do" name="DO" readonly>
+                    </div>
+                    {% endif %}
+                    <div class="sensor-field">
+                        <label>TDS</label>
+                        <input type="text" id="tds" name="TDS" readonly>
+                    </div>
+                    <div class="sensor-field">
+                        <label>Chlorophyll</label>
+                        <input type="text" id="chlorophyll" name="chlorophyll" readonly>
+                    </div>
+                    {% if project == 'ocean' %}
+                    <div class="sensor-field">
+                        <label>Total Alkalinity (TA)</label>
+                        <input type="text" id="ta" name="TA" readonly>
+                    </div>
+                    <div class="sensor-field">
+                        <label>Dissolved Inorganic Carbon (DIC)</label>
+                        <input type="text" id="dic" name="DIC" readonly>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- Image Upload -->
+            <div class="panel card-panel">
+                <h2 class="panel-title">Upload Image</h2>
+                <div class="image-upload">
+                    <input type="file" id="image" name="image" accept="image/*" disabled>
+                    <div id="image-preview" class="image-preview"></div>
+                </div>
+            </div>
+            <button type="submit" class="btn-glow submit-btn" disabled>Submit Data</button>
+        </form>
+        <div id="success-message" class="success-message">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;margin-bottom:8px;">
+                <circle cx="24" cy="24" r="22" stroke="#00ffcc" stroke-width="4" fill="#1e90ff33"/>
+                <path d="M14 25l7 7 13-13" stroke="#00ffcc" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div>Data uplink successful</div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/static/js/data_entry.js"></script>
+</body>
+</html>
