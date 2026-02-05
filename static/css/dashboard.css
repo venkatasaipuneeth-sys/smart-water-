@@ -1,0 +1,99 @@
+/* dashboard.css - Project Selection Dashboard, Scientific Dark Theme */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+body.dashboard-bg {
+    background: linear-gradient(135deg, #0a1833 0%, #101c2c 100%);
+    min-height: 100vh;
+    font-family: 'Montserrat', Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-title {
+    color: #eaf6ff;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+    letter-spacing: 1px;
+    text-shadow: 0 0 12px #1e90ff55;
+}
+
+.project-cards {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.project-card {
+    background: rgba(18, 32, 56, 0.98);
+    border-radius: 18px;
+    box-shadow: 0 0 32px 4px #1e3a5c, 0 0 0 2px #1e90ff33;
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    min-width: 260px;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: box-shadow 0.3s, transform 0.2s, background 0.2s, filter 0.2s;
+    position: relative;
+    border: 2px solid transparent;
+    filter: brightness(1) drop-shadow(0 0 8px #1e90ff44);
+}
+.project-card:hover, .project-card:focus {
+    box-shadow: 0 0 48px #1e90ffcc, 0 0 0 3px #00c3ff99;
+    background: rgba(18, 32, 56, 1);
+    transform: translateY(-4px) scale(1.04);
+    border: 2px solid #1e90ff;
+    filter: brightness(1.1) drop-shadow(0 0 16px #00c3ff99);
+}
+.card-selected {
+    animation: cardSelect 0.5s cubic-bezier(.77,0,.18,1) both;
+    box-shadow: 0 0 64px #00c3ffcc, 0 0 0 4px #1e90ff;
+    border: 2px solid #00c3ff;
+}
+@keyframes cardSelect {
+    0% { transform: scale(1); }
+    60% { transform: scale(1.08); }
+    100% { transform: scale(0.97); }
+}
+
+.icon-glow {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+}
+.project-icon {
+    width: 64px;
+    filter: drop-shadow(0 0 16px #1e90ffcc) brightness(1.2);
+    border-radius: 50%;
+    background: #0a1833;
+    padding: 6px;
+}
+
+.project-label {
+    color: #eaf6ff;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-top: 0.8rem;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 8px #1e90ff55;
+}
+
+.ocean-card {
+    border-top: 4px solid #1e90ff;
+}
+.pond-card {
+    border-top: 4px solid #00c3ff;
+}
