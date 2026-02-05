@@ -56,7 +56,6 @@ class WaterData(db.Model):
     DIC = db.Column(db.Float)
 
 @app.before_request
-@app.before_first_request
 def setup():
     db.create_all()
 
@@ -187,4 +186,5 @@ def sensor_data():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
