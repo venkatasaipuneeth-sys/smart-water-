@@ -1,0 +1,152 @@
+/* auth.css - Scientific Dark Theme, Animated Auth UI */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+body.auth-bg {
+    background: linear-gradient(135deg, #0a1833 0%, #101c2c 100%);
+    min-height: 100vh;
+    font-family: 'Montserrat', Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.auth-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-card {
+    background: rgba(18, 32, 56, 0.98);
+    border-radius: 18px;
+    box-shadow: 0 0 32px 4px #1e3a5c, 0 0 0 2px #1e90ff33;
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    min-width: 340px;
+    max-width: 370px;
+    position: relative;
+    animation: fadeInDown 0.8s cubic-bezier(.77,0,.18,1) both;
+    transition: box-shadow 0.3s, background 0.2s;
+}
+.auth-card:hover, .auth-card:focus-within {
+    box-shadow: 0 0 48px #1e90ffcc, 0 0 0 3px #00c3ff99;
+    background: rgba(18, 32, 56, 1);
+}
+
+.logo-glow {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+}
+.logo {
+    width: 64px;
+    filter: drop-shadow(0 0 16px #1e90ffcc) brightness(1.2);
+    border-radius: 50%;
+    background: #0a1833;
+    padding: 6px;
+}
+
+.auth-title {
+    color: #eaf6ff;
+    text-align: center;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px #1e90ff55;
+}
+
+.input-group {
+    margin-bottom: 1.2rem;
+}
+.input-group label {
+    color: #b0cfff;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    display: block;
+    letter-spacing: 0.5px;
+}
+.input-group input {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    border: none;
+    background: #16243a;
+    color: #eaf6ff;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 0 0 1.5px #1e90ff33;
+    transition: box-shadow 0.2s, background 0.2s;
+}
+.input-group input:focus {
+    box-shadow: 0 0 0 3px #00c3ffcc;
+    background: #1e3a5c;
+}
+
+.btn-glow {
+    width: 100%;
+    padding: 0.8rem 0;
+    background: linear-gradient(90deg, #1e90ff 0%, #00c3ff 100%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 16px #1e90ff88;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.1s, filter 0.2s;
+    margin-top: 0.5rem;
+    filter: brightness(1) drop-shadow(0 0 8px #1e90ff44);
+}
+.btn-glow:hover, .btn-glow:focus {
+    background: linear-gradient(90deg, #00c3ff 0%, #1e90ff 100%);
+    box-shadow: 0 0 32px #1e90ffcc;
+    transform: translateY(-2px) scale(1.03);
+    filter: brightness(1.1) drop-shadow(0 0 16px #00c3ff99);
+}
+
+.switch-link {
+    text-align: center;
+    margin-top: 1.2rem;
+    color: #b0cfff;
+    font-size: 0.98rem;
+}
+.animated-link {
+    color: #1e90ff;
+    margin-left: 0.3rem;
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: color 0.2s;
+}
+.animated-link:after {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(90deg, #1e90ff 0%, #00c3ff 100%);
+    transition: width 0.3s;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+}
+.animated-link:hover:after {
+    width: 100%;
+}
+.animated-link:hover {
+    color: #00c3ff;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-40px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
