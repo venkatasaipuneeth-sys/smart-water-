@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Project | Water Quality Dashboard</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-bg">
+    <div class="dashboard-container">
+        <h1 class="dashboard-title">Select Monitoring Project</h1>
+        <div class="project-cards">
+            <div class="project-card ocean-card" onclick="selectProject('ocean')">
+                <div class="icon-glow">
+                    <img src="/static/img/ocean-icon.svg" alt="Ocean Water" class="project-icon">
+                </div>
+                <div class="project-label">Ocean Water Monitoring</div>
+            </div>
+            <div class="project-card pond-card" onclick="selectProject('pond')">
+                <div class="icon-glow">
+                    <img src="/static/img/pond-icon.svg" alt="Pond Health" class="project-icon">
+                </div>
+                <div class="project-label">Pond Health Monitoring</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function selectProject(project) {
+            const card = document.querySelector('.' + project + '-card');
+            card.classList.add('card-selected');
+            setTimeout(() => {
+                window.location.href = '/data_entry/' + project;
+            }, 500);
+        }
+    </script>
+</body>
+</html>
